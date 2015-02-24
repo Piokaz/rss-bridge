@@ -99,7 +99,7 @@ class YoutubeBridge extends BridgeAbstract{
 				$this->request = $param['s']; $page = 1; if (isset($param['pa'])) $page = (int)preg_replace("/[^0-9]/",'', $param['pa']); 
 				$html = file_get_html('https://www.youtube.com/results?search_query='.urlencode($this->request).'&&page='.$page.'&filters=video&search_sort=video_date_uploaded') or $this->returnError('Could not request Youtube.', 404);
 
-				foreach($html->find('li.yt-lockup') as $element) {
+				foreach($html->find('.yt-lockup-dismissable') as $element) {
 					$item = new \Item();
 					$item->uri = 'https://www.youtube.com'.$element->find('a',0)->href;
 					$checkthumb = $element->find('img', 0)->getAttribute('data-thumb');
